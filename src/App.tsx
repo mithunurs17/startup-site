@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import About from './pages/About';
@@ -22,60 +22,49 @@ function Layout({ children }: { children: React.ReactNode }) {
           <Link to="/">LIAM6</Link>
         </div>
         <nav className="site-nav">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-          <Link to="/products" className="nav-link">
-            Products
-          </Link>
-          <Link to="/about" className="nav-link">
-            About
-          </Link>
-          <Link to="/contact" className="nav-link">
-            Contact
-          </Link>
+          <NavLink to="/" end className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Home</NavLink>
+          <NavLink to="/products" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Products</NavLink>
+          <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>About</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Contact</NavLink>
         </nav>
-        <Link to="/contact" className="button button-primary">
-          Get Started
-        </Link>
+        <Link to="/contact" className="button button-primary">Request Quote</Link>
       </header>
 
-      <main>{children}</main>
+      <main style={{ flex: 1 }}>{children}</main>
 
       <footer className="site-footer">
         <div className="footer-top">
           <div className="footer-brand">
-            <div className="brand-mark small">LIAM6</div>
-            <p>
-              Premium ginger and dry ginger exports for spice traders, wholesalers, and food brands worldwide.
-            </p>
+            <span className="brand-mark">LIAM6</span>
+            <p>Premium ginger and dry ginger exports for spice traders, wholesalers, and food brands worldwide.</p>
           </div>
           <div className="footer-links">
             <div>
-              <h4>Product</h4>
-              <a href="/products">Ginger Products</a>
-              <a href="/products">Dry Ginger Grades</a>
-              <a href="/products">Packaging Options</a>
+              <h4>Products</h4>
+              <Link to="/products">Fresh Ginger</Link>
+              <Link to="/products">Dry Ginger</Link>
+              <Link to="/products">Coffee & Pepper</Link>
+              <Link to="/products">Packaging Options</Link>
             </div>
             <div>
               <h4>Company</h4>
-              <a href="/about">About LIAM6</a>
-              <a href="/about">Our Farmer Network</a>
-              <a href="/about">Certifications</a>
+              <Link to="/about">About LIAM6</Link>
+              <Link to="/about">Our Mission</Link>
+              <Link to="/about">Certifications</Link>
             </div>
             <div>
-              <h4>Resources</h4>
-              <a href="/contact">Export Process</a>
-              <a href="/contact">FAQs</a>
-              <a href="/contact">Contact</a>
+              <h4>Trade</h4>
+              <Link to="/contact">Get a Quote</Link>
+              <Link to="/contact">Export Process</Link>
+              <Link to="/contact">Contact</Link>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
           <span>© 2026 LIAM6 Exports & Agro. All rights reserved.</span>
           <div className="footer-meta">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
           </div>
         </div>
       </footer>
@@ -87,38 +76,10 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <Layout>
-              <Products />
-            </Layout>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <Layout>
-              <About />
-            </Layout>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <Layout>
-              <Contact />
-            </Layout>
-          }
-        />
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/products" element={<Layout><Products /></Layout>} />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/contact" element={<Layout><Contact /></Layout>} />
       </Routes>
     </Router>
   );

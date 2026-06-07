@@ -1,26 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const productCards = [
   {
-    title: 'Ginger',
-    description:
-      'Premium fresh and dry ginger sourced from trusted farms, processed for export-grade consistency and aroma.',
-    features: ['Fresh & Dry Varieties', 'Export Grade Quality'],
+    title: 'Fresh Ginger',
+    description: 'Vibrant, aromatic fresh ginger hand-selected from farms in prime growing regions. Available in multiple size grades with full phytosanitary certification.',
+    features: ['Grade A & AA Varieties', 'Phytosanitary Certified', 'Custom Sizing Available'],
     icon: '🌿',
   },
   {
-    title: 'Coffee',
-    description:
-      'High-grade Arabica and Robusta coffee beans carefully roasted and packed to preserve freshness and flavor.',
-    features: ['Single Origin Blends', 'Custom Roasting'],
+    title: 'Dry Ginger',
+    description: 'Sun-dried and mechanically dried ginger with low moisture content, high volatile oil, and rich pungency — ideal for spice processors and food manufacturers.',
+    features: ['Low Moisture (<10%)', 'High Volatile Oil', 'Whole, Split & Powder'],
+    icon: '🫛',
+  },
+  {
+    title: 'Specialty Coffee',
+    description: 'High-grade Arabica and Robusta beans sourced from select estates, carefully processed and graded to international cupping standards.',
+    features: ['Single Origin Lots', 'Green & Roasted Options', 'Q-Grader Assessed'],
     icon: '☕',
   },
   {
     title: 'Black Pepper',
-    description:
-      'Premium black pepper with high piperine content, dried and graded for consistent global market standards.',
-    features: ['High Piperine Content', 'Selective Sourcing'],
-    icon: '🧂',
+    description: 'Premium Malabar black pepper with exceptional piperine levels, machine-cleaned and sortex-graded for consistent quality and visual appeal.',
+    features: ['High Piperine Content', 'Sortex Cleaned', 'FSSAI & ASTA Graded'],
+    icon: '🌑',
   },
 ];
 
@@ -30,11 +34,12 @@ export default function Products() {
       <div className="section-intro">
         <span className="section-pill">Our Products</span>
         <h2>
-          Premium Agricultural <span>Exports</span>
+          Premium agricultural<br/>
+          <span>exports, worldwide</span>
         </h2>
         <p>
-          LIAM6 Exports & Agro offers a range of premium agricultural products sourced from trusted farms
-          and processed to international standards.
+          Each product we offer meets international trade standards with full traceability,
+          documentation, and quality certification for seamless import clearance.
         </p>
       </div>
 
@@ -54,10 +59,8 @@ export default function Products() {
       </div>
 
       <div className="cta-banner">
-        <p>Need custom specifications or bulk quantities?</p>
-        <a href="#contact" className="button button-primary">
-          Contact Us for Quotation
-        </a>
+        <p>Need custom specifications, bulk quantities, or private label options?</p>
+        <Link to="/contact" className="button button-primary">Contact Us for a Quotation</Link>
       </div>
     </section>
   );

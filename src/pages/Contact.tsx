@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', company: '', email: '', product: '', message: '' });
   const [status, setStatus] = useState('');
 
   const updateForm = (field: string, value: string) => {
@@ -11,34 +11,46 @@ export default function Contact() {
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('Message sent — our global trade team will respond within 24 hours.');
-    setForm({ name: '', email: '', message: '' });
+    setStatus('Thank you — our global trade team will respond within 24 hours.');
+    setForm({ name: '', company: '', email: '', product: '', message: '' });
   };
 
   return (
     <section className="contact-section">
       <div className="section-intro centered">
-        <span className="section-pill">Contact</span>
-        <h2>Let's <span>discuss ginger</span></h2>
+        <span className="section-pill">Get in Touch</span>
+        <h2>
+          Let's discuss your<br/>
+          <span>ginger requirements</span>
+        </h2>
         <p>
-          Share your ginger and dry ginger requirements and our team will get back with details on quality, pricing, and shipment options.
+          Share your product requirements and our team will respond with quality specifications,
+          pricing, and shipment details within one business day.
         </p>
       </div>
 
       <form className="contact-form" onSubmit={submitForm}>
         <label>
-          Name
-          <input value={form.name} onChange={(e) => updateForm('name', e.target.value)} placeholder="Your name" required />
+          Your Name
+          <input value={form.name} onChange={(e) => updateForm('name', e.target.value)} placeholder="Jane Smith" required />
         </label>
         <label>
-          Email
-          <input type="email" value={form.email} onChange={(e) => updateForm('email', e.target.value)} placeholder="your@email.com" required />
+          Company / Organization
+          <input value={form.company} onChange={(e) => updateForm('company', e.target.value)} placeholder="Spice Traders Ltd." />
         </label>
         <label>
-          Message
-          <textarea value={form.message} onChange={(e) => updateForm('message', e.target.value)} placeholder="Tell us about your ginger and dry ginger requirements..." rows={5} required />
+          Business Email
+          <input type="email" value={form.email} onChange={(e) => updateForm('email', e.target.value)} placeholder="jane@company.com" required />
         </label>
-        <button type="submit" className="button button-primary button-lg">Send Message</button>
+        <label>
+          Product of Interest
+          <input value={form.product} onChange={(e) => updateForm('product', e.target.value)} placeholder="e.g. Dry Ginger, Fresh Ginger, Black Pepper..." />
+        </label>
+        <label>
+          Your Requirements
+          <textarea value={form.message} onChange={(e) => updateForm('message', e.target.value)} placeholder="Tell us about quantity, grade, packaging, destination port, and timeline..." rows={5} required />
+        </label>
+        <button type="submit" className="button button-primary button-lg">Send Enquiry</button>
         {status && <p className="form-status">{status}</p>}
       </form>
     </section>
