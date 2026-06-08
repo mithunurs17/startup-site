@@ -241,6 +241,12 @@ export default function Home() {
                   <p>Mon–Sat, 9AM–7PM IST</p>
                 </div>
               </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                <Link to="/contact" className="btn-hero">
+                  Schedule a Consult
+                </Link>
+              </div>
             </div>
           </div>
         </section>
