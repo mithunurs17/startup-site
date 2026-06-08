@@ -20,7 +20,7 @@ export default function Contact() {
       <div className="section-intro centered">
         <span className="section-pill">Get in Touch</span>
         <h2>
-          Let's discuss your<br/>
+          Let's discuss your<br />
           <span>ginger requirements</span>
         </h2>
         <p>
@@ -50,7 +50,9 @@ export default function Contact() {
           Your Requirements
           <textarea value={form.message} onChange={(e) => updateForm('message', e.target.value)} placeholder="Tell us about quantity, grade, packaging, destination port, and timeline..." rows={5} required />
         </label>
-        <button type="submit" className="button button-primary button-lg">Send Enquiry</button>
+        <button type="submit" className="btn btn-primary" style={{ padding: '0.875rem 2rem', fontSize: '1rem', borderRadius: '0.75rem' }}>
+          Send Enquiry
+        </button>
         {status && <p className="form-status">{status}</p>}
       </form>
     </section>
