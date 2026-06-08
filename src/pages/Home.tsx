@@ -1,189 +1,212 @@
-import {
-  Sparkles,
-  Download,
-  Wand2,
-  BookOpen,
-  ArrowRight,
-  Menu,
-  Share2,
-  Globe,
-  MessageCircle,
-} from "lucide-react";
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+
+const LOGOS = ['Vortex', 'Nimbus', 'Prysma', 'Cirrus', 'Kynder', 'Halcyn'];
+
+function LogoItem({ name }: { name: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}>
+      <div
+        className="liquid-glass"
+        style={{
+          width: 32,
+          height: 32,
+          borderRadius: '0.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.8125rem',
+          fontWeight: 700,
+          color: 'hsl(var(--foreground) / 0.7)',
+          fontFamily: '"General Sans", sans-serif',
+        }}
+      >
+        {name[0]}
+      </div>
+      <span style={{ fontSize: '1rem', fontWeight: 600, color: 'hsl(var(--foreground) / 0.6)', whiteSpace: 'nowrap' }}>
+        {name}
+      </span>
+    </div>
+  );
+}
 
 export default function Home() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let rafId: number;
+    let fadeOutStarted = false;
+
+    const FADE_IN_DURATION = 0.5;
+    const FADE_OUT_DURATION = 0.5;
+
+    function tick() {
+      if (!video) return;
+      const t = video.currentTime;
+      const dur = video.duration || 0;
+
+      // Fade in
+      if (t < FADE_IN_DURATION) {
+        video.style.opacity = String(t / FADE_IN_DURATION);
+      }
+      // Fade out
+      else if (dur > 0 && t > dur - FADE_OUT_DURATION) {
+        const remaining = dur - t;
+        video.style.opacity = String(remaining / FADE_OUT_DURATION);
+        fadeOutStarted = true;
+      } else {
+        video.style.opacity = '1';
+        fadeOutStarted = false;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    const handlePlay = () => {
+      video.style.opacity = '0';
+      fadeOutStarted = false;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const handleEnded = () => {
+      cancelAnimationFrame(rafId);
+      video.style.opacity = '0';
+      setTimeout(() => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }, 100);
+    };
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('ended', handleEnded);
+    video.style.opacity = '0';
+    video.play().catch(() => {});
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
+  const marqueeItems = [...LOGOS, ...LOGOS];
+
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      {/* VIDEO BACKGROUND */}
+    <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      {/* Background video */}
       <video
-        autoPlay
+        ref={videoRef}
         muted
-        loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover z-0"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 0,
+          zIndex: 0,
+        }}
       >
         <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
           type="video/mp4"
         />
       </video>
 
-      <div className="absolute inset-0 bg-black/45 z-[1]" />
+      {/* Blurred overlay shape */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 984,
+          height: 527,
+          opacity: 0.9,
+          background: 'hsl(220 10% 4%)',
+          filter: 'blur(82px)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
 
-      <section className="relative z-10 min-h-screen flex">
-        {/* LEFT PANEL */}
-        <div className="w-full lg:w-[52%] p-4 lg:p-6">
-          <div className="liquid-glass-strong rounded-[2rem] h-full flex flex-col p-8">
-            {/* NAVBAR */}
-            <nav className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-xs text-white uppercase">
-                  B
-                </div>
-                <h2 className="text-2xl font-semibold tracking-tight text-white">
-                  bloom
-                </h2>
-              </div>
+      {/* Hero content (spaced for site header) */}
+      <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minHeight: '100vh', overflow: 'visible', paddingTop: '3.5rem' }}>
 
-              <button className="liquid-glass rounded-full px-5 py-3 flex items-center gap-2 hover:scale-105 transition-all">
-                <Menu size={18} />
-                Menu
-              </button>
-            </nav>
+        {/* ── Hero body ── */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', padding: '0 2rem' }}>
+          <div style={{ textAlign: 'center', maxWidth: 900 }}>
+            {/* Eyebrow */}
+            <div style={{ marginBottom: '2rem' }}>
+              <span className="section-pill">Premium Agricultural Exports</span>
+            </div>
 
-            {/* HERO */}
-            <div className="flex-1 flex flex-col justify-center">
-              <div className="w-20 h-20 mb-8 rounded-3xl bg-white/10 flex items-center justify-center text-3xl text-white">
-                B
-              </div>
+            {/* Headline */}
+            <h1 style={{
+              fontFamily: '"General Sans", sans-serif',
+              fontSize: 'clamp(4rem, 12vw, 11rem)',
+              fontWeight: 400,
+              lineHeight: 1.02,
+              letterSpacing: '-0.024em',
+              color: 'hsl(var(--foreground))',
+              marginBottom: '1.5rem',
+            }}>
+              <span>LIAM</span>
+              {' '}
+              <span style={{
+                backgroundImage: 'linear-gradient(to left, #6366f1, #a855f7, #fcd34d)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Fresh
+              </span>
+            </h1>
 
-              <h1 className="text-6xl lg:text-7xl font-medium tracking-[-0.05em] leading-[0.95] text-white max-w-xl">
-                Innovating the
-                <br />
-                spirit of{" "}
-                <span className="font-serif italic text-white/80">
-                  bloom AI
-                </span>
-              </h1>
+            {/* Subtitle */}
+            <p style={{
+              color: 'hsl(var(--hero-sub))',
+              fontSize: '1.125rem',
+              lineHeight: 2,
+              maxWidth: '28rem',
+              margin: '0 auto',
+              opacity: 0.8,
+            }}>
+              Premium ginger & spice exports<br/>trusted by buyers across continents
+            </p>
 
-              <button className="liquid-glass-strong mt-10 rounded-full px-8 py-4 flex items-center gap-4 w-fit hover:scale-105 active:scale-95 transition-all">
-                Explore Now
+            {/* CTA */}
+            <div style={{ marginTop: '2rem' }}>
+              <Link to="/contact" className="btn-hero">
+                Schedule a Consult
+              </Link>
+            </div>
+          </div>
+        </div>
 
-                <span className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
-                  <Download size={16} />
-                </span>
-              </button>
+        {/* ── Logo marquee ── */}
+        <div style={{ paddingBottom: '2.5rem', paddingTop: '1rem' }}>
+          <div style={{ maxWidth: '64rem', margin: '0 auto', padding: '0 2rem', display: 'flex', alignItems: 'center', gap: '3rem' }}>
+            {/* Static text */}
+            <div style={{ flexShrink: 0, fontSize: '0.875rem', color: 'hsl(var(--foreground) / 0.5)', lineHeight: 1.5, minWidth: 140 }}>
+              Relied on by brands<br />across the globe
+            </div>
 
-              <div className="flex flex-wrap gap-3 mt-10">
-                {[
-                  "Artistic Gallery",
-                  "AI Generation",
-                  "3D Structures",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="liquid-glass rounded-full px-4 py-2 text-xs text-white/80"
-                  >
-                    {item}
-                  </div>
+            {/* Scrolling logos */}
+            <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+              <div style={{ display: 'flex', gap: '4rem', width: 'max-content' }} className="animate-marquee">
+                {marqueeItems.map((name, i) => (
+                  <LogoItem key={`${name}-${i}`} name={name} />
                 ))}
               </div>
             </div>
-
-            {/* QUOTE */}
-            <div className="space-y-4">
-              <p className="uppercase tracking-[0.3em] text-xs text-white/50">
-                Visionary Design
-              </p>
-
-              <h3 className="text-xl text-white/90">
-                We imagined a{" "}
-                <span className="font-serif italic">realm</span>
-                {" "}with no{" "}
-                <span className="font-serif italic">ending</span>.
-              </h3>
-
-              <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-white/20" />
-
-                <span className="text-xs tracking-[0.3em] text-white/60">
-                  MARCUS AURELIO
-                </span>
-
-                <div className="h-px flex-1 bg-white/20" />
-              </div>
-            </div>
           </div>
         </div>
-
-        {/* RIGHT PANEL */}
-        <div className="hidden lg:flex w-[48%] p-6">
-          <div className="h-full flex flex-col w-full">
-            {/* TOP BAR */}
-            <div className="flex justify-end gap-4">
-              <div className="liquid-glass rounded-full px-4 py-3 flex items-center gap-4">
-                <Share2 size={18} />
-                <Globe size={18} />
-                <MessageCircle size={18} />
-                <ArrowRight size={18} />
-              </div>
-
-              <button className="liquid-glass rounded-full p-3 hover:scale-105 transition-all">
-                <Sparkles size={18} />
-              </button>
-            </div>
-
-            {/* COMMUNITY CARD */}
-            <div className="mt-12">
-              <div className="liquid-glass rounded-3xl p-6 w-56">
-                <h3 className="text-white text-lg">
-                  Enter our ecosystem
-                </h3>
-
-                <p className="text-white/60 text-sm mt-2">
-                  Connect with creators building future botanical experiences.
-                </p>
-              </div>
-            </div>
-
-            {/* BOTTOM SECTION */}
-            <div className="mt-auto liquid-glass-strong rounded-[2.5rem] p-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="liquid-glass rounded-3xl p-6">
-                  <Wand2 size={22} />
-                  <h4 className="mt-4 text-white">
-                    Processing
-                  </h4>
-                </div>
-
-                <div className="liquid-glass rounded-3xl p-6">
-                  <BookOpen size={22} />
-                  <h4 className="mt-4 text-white">
-                    Growth Archive
-                  </h4>
-                </div>
-              </div>
-
-              <div className="liquid-glass rounded-3xl mt-4 p-4 flex items-center gap-4">
-                <div className="w-24 h-16 rounded-2xl bg-white/10" />
-
-                <div className="flex-1">
-                  <h4 className="text-white">
-                    Advanced Plant Sculpting
-                  </h4>
-
-                  <p className="text-white/60 text-sm">
-                    AI-assisted floral architecture.
-                  </p>
-                </div>
-
-                <button className="w-10 h-10 rounded-full bg-white/10 hover:scale-105 transition-all">
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
