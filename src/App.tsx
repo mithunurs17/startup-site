@@ -3,6 +3,9 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ExportProcess from './pages/ExportProcess';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 import Ginger from './pages/products/Ginger';
 import Coffee from './pages/products/Coffee';
 import BlackPepper from './pages/products/BlackPepper';
@@ -57,7 +60,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4>Trade</h4>
               <Link to="/contact">Get a Quote</Link>
-              <Link to="/contact">Export Process</Link>
+              <Link to="/export-process">Export Process</Link>
               <Link to="/contact">Contact</Link>
             </div>
           </div>
@@ -65,8 +68,8 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="footer-bottom">
           <span>© 2026 LIAM6 Exports & Agro. All rights reserved.</span>
           <div className="footer-meta">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
           </div>
         </div>
       </footer>
@@ -84,6 +87,9 @@ export default function App() {
         <Route path="/products/coffee" element={<Layout><Coffee /></Layout>} />
         <Route path="/products/black-pepper" element={<Layout><BlackPepper /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/export-process" element={<Layout><ExportProcess /></Layout>} />
+        <Route path="/privacy" element={<Layout><Privacy /></Layout>} />
+        <Route path="/terms" element={<Layout><Terms /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
       </Routes>
     </Router>
