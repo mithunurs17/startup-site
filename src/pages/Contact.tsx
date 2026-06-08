@@ -9,10 +9,32 @@ export default function Contact() {
     setStatus('');
   };
 
-  const submitForm = (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('Thank you — our global trade team will respond within 24 hours.');
-    setForm({ name: '', company: '', email: '', product: '', message: '' });
+
+    setStatus('Sending enquiry...');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setStatus('Enquiry sent successfully to mithunursmithun@gmail.com.');
+        setForm({ name: '', company: '', email: '', product: '', message: '' });
+      } else {
+        const errorData = await response.json().catch(() => null);
+        console.error('Contact API error', errorData);
+        setStatus(errorData?.error || 'Unable to send enquiry. Please try again later.');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('Unable to send enquiry. Please check your connection and try again.');
+    }
   };
 
   return (
@@ -32,23 +54,23 @@ export default function Contact() {
       <form className="contact-form" onSubmit={submitForm}>
         <label>
           Your Name
-          <input value={form.name} onChange={(e) => updateForm('name', e.target.value)} placeholder="Jane Smith" required />
+          <input name="name" value={form.name} onChange={(e) => updateForm('name', e.target.value)} placeholder="Jane Smith" required />
         </label>
         <label>
           Company / Organization
-          <input value={form.company} onChange={(e) => updateForm('company', e.target.value)} placeholder="Spice Traders Ltd." />
+          <input name="company" value={form.company} onChange={(e) => updateForm('company', e.target.value)} placeholder="Spice Traders Ltd." />
         </label>
         <label>
           Business Email
-          <input type="email" value={form.email} onChange={(e) => updateForm('email', e.target.value)} placeholder="jane@company.com" required />
+          <input name="email" type="email" value={form.email} onChange={(e) => updateForm('email', e.target.value)} placeholder="jane@company.com" required />
         </label>
         <label>
           Product of Interest
-          <input value={form.product} onChange={(e) => updateForm('product', e.target.value)} placeholder="e.g. Dry Ginger, Fresh Ginger, Black Pepper..." />
+          <input name="product" value={form.product} onChange={(e) => updateForm('product', e.target.value)} placeholder="e.g. Dry Ginger, Fresh Ginger, Black Pepper..." />
         </label>
         <label>
           Your Requirements
-          <textarea value={form.message} onChange={(e) => updateForm('message', e.target.value)} placeholder="Tell us about quantity, grade, packaging, destination port, and timeline..." rows={5} required />
+          <textarea name="message" value={form.message} onChange={(e) => updateForm('message', e.target.value)} placeholder="Tell us about quantity, grade, packaging, destination port, and timeline..." rows={5} required />
         </label>
         <button type="submit" className="btn btn-primary" style={{ padding: '0.875rem 2rem', fontSize: '1rem', borderRadius: '0.75rem' }}>
           Send Enquiry

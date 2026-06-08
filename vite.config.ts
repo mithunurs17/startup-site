@@ -8,6 +8,9 @@ export default defineConfig({
     hmr: {
       overlay: true,
     },
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
   optimizeDeps: {
     include: ['react-router-dom'],
