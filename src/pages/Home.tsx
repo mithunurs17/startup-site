@@ -201,55 +201,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Company profile ── */}
-        <section style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '0 2rem', marginTop: '3rem' }}>
-          <div style={{ position: 'sticky', bottom: '1.5rem', width: '100%', maxWidth: '980px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '1.5rem', padding: '2rem', backdropFilter: 'blur(20px)', boxShadow: '0 30px 90px rgba(0,0,0,0.12)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div>
-                <span className="section-pill">Company Profile</span>
-                <h2 style={{ marginTop: '0.75rem' }}>
-                  Get to know LIAM6
-                </h2>
-                <p style={{ color: 'hsl(var(--muted-foreground))', marginTop: '1rem', lineHeight: 1.8 }}>
-                  A trusted partner in the global spice trade since 2010, exporting high-quality ginger and dry ginger to buyers around the world.
-                </p>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Company Name</h3>
-                  <p>LIAM6 Exports & Agro</p>
-                </div>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Head Office</h3>
-                  <p>Chikmagalur, Karnataka, India</p>
-                </div>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Website</h3>
-                  <p>www.liam6.com</p>
-                </div>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Email</h3>
-                  <p>hello@liam6.com</p>
-                </div>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Phone</h3>
-                  <p>+1 (555) 123-4567</p>
-                </div>
-                <div style={{ padding: '1.25rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.04)' }}>
-                  <h3 style={{ marginBottom: '0.75rem', color: 'hsl(var(--foreground))' }}>Business Hours</h3>
-                  <p>Mon–Sat, 9AM–7PM IST</p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-                <Link to="/contact" className="btn-hero">
-                  Schedule a Consult
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );
