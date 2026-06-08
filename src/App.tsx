@@ -3,6 +3,9 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Ginger from './pages/products/Ginger';
+import Coffee from './pages/products/Coffee';
+import BlackPepper from './pages/products/BlackPepper';
 import { useEffect, useState } from 'react';
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -41,10 +44,9 @@ function Layout({ children }: { children: React.ReactNode }) {
           <div className="footer-links">
             <div>
               <h4>Products</h4>
-              <Link to="/products">Fresh Ginger</Link>
-              <Link to="/products">Dry Ginger</Link>
-              <Link to="/products">Coffee & Pepper</Link>
-              <Link to="/products">Packaging Options</Link>
+              <Link to="/products/ginger">Fresh Ginger</Link>
+              <Link to="/products/coffee">Specialty Coffee</Link>
+              <Link to="/products/black-pepper">Black Pepper</Link>
             </div>
             <div>
               <h4>Company</h4>
@@ -78,6 +80,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/products" element={<Layout><Products /></Layout>} />
+        <Route path="/products/ginger" element={<Layout><Ginger /></Layout>} />
+        <Route path="/products/coffee" element={<Layout><Coffee /></Layout>} />
+        <Route path="/products/black-pepper" element={<Layout><BlackPepper /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
       </Routes>
